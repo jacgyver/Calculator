@@ -22,8 +22,6 @@ public class Main extends Application {
 			this.primaryStage.getIcons().add(new Image("file:resources/calculator.jpg"));
 			this.primaryStage.setTitle("Calculator for JAVA");
 			
-			
-
 			initLayout();
 			calculatorLayout();
 			
@@ -31,8 +29,9 @@ public class Main extends Application {
 	private void initLayout() {
 		try {
 			root = (BorderPane)FXMLLoader.load(getClass().getResource("view/RootLayout.fxml"));
-			scene = new Scene(root,700,400);
+			scene = new Scene(root,500,300);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
