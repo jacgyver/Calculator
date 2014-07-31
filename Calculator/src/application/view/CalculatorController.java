@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class CalculatorController {
+	protected static final String SPACE = " ";
+	
 	@FXML
 	private Button one;
 	@FXML
@@ -50,13 +52,17 @@ public class CalculatorController {
 	private TextField displayTF;
 	
 	
-	private String displayTemp = null;
 	private boolean checkedAC = false;
+	private boolean checkedEqual = false;
 	
 	private void displayTextField(String text) {
 		if (checkedAC == true) {		
 			displayTF.setText(text);
 			checkedAC = false;
+		}
+		else if (checkedEqual == true) {		
+			displayTF.setText(text);
+			checkedEqual = false;
 		}
 		else
 			displayTF.setText(displayTF.getText().concat(text));
@@ -76,7 +82,7 @@ public class CalculatorController {
 			
 			if (ch>='0' && ch <= '9' || ch == '.')
 				result += ch;
-			else if ("+-*/()".contains(String.valueOf(ch))) {
+			else if ("+-¡¿¡À()".contains(String.valueOf(ch))) {
 				result += ' ';
 				if (stack1.isEmpty())
 					stack1.push(ch);
@@ -120,7 +126,7 @@ public class CalculatorController {
 				System.out.println("Double.parseDouble(temp) : " + Double.parseDouble(temp));
 				stack2.push(Double.parseDouble(temp));
 			}
-			else if ("+-*/()".contains(String.valueOf(t))) {
+			else if ("+-¡¿¡À()".contains(String.valueOf(t))) {
 				if (!stack2.isEmpty()) {
 					System.out.println(stack2.size());
 					double n1 = stack2.pop();
@@ -134,10 +140,10 @@ public class CalculatorController {
 						case '-' :
 							r=n2-n1;
 							break;
-						case '*' :
+						case '¡¿' :
 							r=n2*n1;
 							break;
-						case '/' :
+						case '¡À' :
 							r=n2/n1;
 							break;
 						default :
@@ -159,8 +165,8 @@ public class CalculatorController {
 			case '-' :
 				result = 1;
 				break;
-			case '*' :
-			case '/' :
+			case '¡¿' :
+			case '¡À' :
 				result = 2;
 				break;
 			default :
@@ -171,7 +177,6 @@ public class CalculatorController {
 
 	@FXML
 	public void initialize() {
-		System.out.println("initialize pressed");
 		zero.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -246,25 +251,25 @@ public class CalculatorController {
 		plus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				displayTextField(plus.getText());
+				displayTextField(SPACE.concat(plus.getText().concat(SPACE)));
 			}
 		});
 		minus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				displayTextField(minus.getText());
+				displayTextField(SPACE.concat(minus.getText().concat(SPACE)));
 			}
 		});
 		multiple.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				displayTextField(multiple.getText());
+				displayTextField(SPACE.concat(multiple.getText().concat(SPACE)));
 			}
 		});
 		divide.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				displayTextField(divide.getText());
+				displayTextField(SPACE.concat(divide.getText().concat(SPACE)));
 			}
 		});
 
@@ -285,7 +290,7 @@ public class CalculatorController {
 				//if (displayTF.getText().equals("0")) 
 				bufferTF.setText(displayTF.getText().concat(" = "));
 				displayTF.setText(String.valueOf(calculate()));
-				
+				checkedEqual = true;				
 			}
 
 		});

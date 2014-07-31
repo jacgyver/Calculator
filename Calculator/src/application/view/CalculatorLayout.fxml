@@ -70,8 +70,8 @@
                         <Button mnemonicParsing="false" prefWidth="50.0" style="-fx-background-color: #D4D4D4;" text="Ans" GridPane.rowIndex="4" />
                         <Button mnemonicParsing="false" prefWidth="50.0" style="-fx-background-color: #D4D4D4;" text="EXP" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Button mnemonicParsing="false" prefWidth="50.0" style="-fx-background-color: #D4D4D4;" text="Xy" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <Button fx:id="divide" mnemonicParsing="false" prefWidth="50.0" style="-fx-background-color: #D4D4D4;" text="/" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                        <Button fx:id="multiple" mnemonicParsing="false" prefWidth="50.0" style="-fx-background-color: #D4D4D4;" text="*" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                        <Button fx:id="divide" mnemonicParsing="false" prefWidth="50.0" style="-fx-background-color: #D4D4D4;" text="÷" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <Button fx:id="multiple" mnemonicParsing="false" prefWidth="50.0" style="-fx-background-color: #D4D4D4;" text="×" GridPane.columnIndex="6" GridPane.rowIndex="2" />
                         <Button fx:id="minus" mnemonicParsing="false" prefWidth="50.0" style="-fx-background-color: #D4D4D4;" text="-" GridPane.columnIndex="6" GridPane.rowIndex="3" />
                         <Button fx:id="plus" mnemonicParsing="false" prefWidth="50.0" style="-fx-background-color: #D4D4D4;" text="+" GridPane.columnIndex="6" GridPane.rowIndex="4">
                            <font>
