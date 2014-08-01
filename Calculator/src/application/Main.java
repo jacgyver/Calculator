@@ -51,6 +51,9 @@ public class Main extends Application {
 		
 	}
 
+	public Scene getScene() {
+		return scene;
+	}
 
 	public static void main(String[] args) {
 		launch(args);

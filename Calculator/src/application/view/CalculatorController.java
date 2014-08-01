@@ -2,16 +2,16 @@ package application.view;
 
 import java.util.Stack;
 
-import com.sun.javafx.applet.ExperimentalExtensions;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+
 public class CalculatorController {
 	protected static final String SPACE = " ";
+	
 	
 	@FXML
 	private Button one;
@@ -33,6 +33,8 @@ public class CalculatorController {
 	private Button nine;
 	@FXML
 	private Button zero;
+	@FXML
+	private Button point;
 	@FXML
 	private Button plus;
 	@FXML
@@ -56,6 +58,24 @@ public class CalculatorController {
 	private boolean checkedEqual = false;
 	
 	private void displayTextField(String text) {
+		text = text.replace(" ", "");
+
+		switch (text) {
+			case "+" :
+				System.out.println("text : " + text);
+				break;
+			case "-" :
+				System.out.println("text : " + text);
+				break;
+			case "×" :
+				System.out.println("text : " + text);
+				break;
+			case "÷" :
+				System.out.println("text : " + text);
+				break;
+			
+		}
+		
 		if (checkedAC == true) {		
 			displayTF.setText(text);
 			checkedAC = false;
@@ -64,18 +84,34 @@ public class CalculatorController {
 			displayTF.setText(text);
 			checkedEqual = false;
 		}
+		else if (displayTF.getText().indexOf('0')  == 0)
+				displayTF.setText(text);
 		else
 			displayTF.setText(displayTF.getText().concat(text));
+
+
 	}
 	
 	
 	private Stack<Character> stack1 = new Stack<Character>();
-	private Stack<Double> stack2 = new Stack<Double>();
+	private Stack<Double>    stack2 = new Stack<Double>();
 
-	private int calculate() {
-		int intResult = 0;
+	private String calculate() throws Exception{
+		String strResult = null;
+		Double doubleResult = 0.0;
 		String result = "";
 		String expression = displayTF.getText();
+		
+		// Display에 들어간 space를 제거
+		expression = expression.replace(" ", "");
+		
+		
+		if (!(expression.contains("+") ||
+			  expression.contains("-") ||
+			  expression.contains("×") ||
+			  expression.contains("÷")))  
+			return expression;
+		
 		
 		for (int i=0;i<expression.length();i++) {
 			char ch = expression.charAt(i);
@@ -86,9 +122,8 @@ public class CalculatorController {
 				result += ' ';
 				if (stack1.isEmpty())
 					stack1.push(ch);
-				else if (ch == '(') {
-					stack1.push(ch);
-				}
+				else if (ch == '(') 
+						stack1.push(ch);
 				else if (ch == ')') {
 					while (!stack1.isEmpty()) {
 						char t = stack1.pop();
@@ -107,7 +142,6 @@ public class CalculatorController {
 		
 		while (!stack1.isEmpty()) {
 			result += stack1.pop();
-			System.out.println(expression + " : " + result);
 		}
 
 		for (int i=0;i<result.length();i++) {
@@ -122,13 +156,10 @@ public class CalculatorController {
 					}
 					temp += t;
 				}
-				
-				System.out.println("Double.parseDouble(temp) : " + Double.parseDouble(temp));
 				stack2.push(Double.parseDouble(temp));
 			}
 			else if ("+-×÷()".contains(String.valueOf(t))) {
 				if (!stack2.isEmpty()) {
-					System.out.println(stack2.size());
 					double n1 = stack2.pop();
 					double n2 = stack2.pop();
 					
@@ -150,11 +181,23 @@ public class CalculatorController {
 							r = 0;
 					}
 					stack2.push(r);
-					intResult = new Double(r).intValue(); 
 				}
 			}
 		}
-		return  intResult;
+		
+		if (stack2.isEmpty())
+			return  strResult;
+		else	{
+			doubleResult = stack2.pop();
+		
+			// integer value는 integer로 display
+			if ((doubleResult/doubleResult.intValue()) == 1)
+				strResult = String.valueOf(doubleResult.intValue());
+			else
+				strResult = doubleResult.toString();
+		
+		return  strResult;
+		}
 	}
 
 	
@@ -248,24 +291,34 @@ public class CalculatorController {
 			}
 		});
 
+		point.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				displayTextField(point.getText());
+			}
+		});
+
 		plus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				displayTextField(SPACE.concat(plus.getText().concat(SPACE)));
 			}
 		});
+		
 		minus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				displayTextField(SPACE.concat(minus.getText().concat(SPACE)));
 			}
 		});
+		
 		multiple.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				displayTextField(SPACE.concat(multiple.getText().concat(SPACE)));
 			}
 		});
+		
 		divide.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -273,10 +326,10 @@ public class CalculatorController {
 			}
 		});
 
-		
 		ac.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				bufferTF.clear();
 				displayTF.clear();
 				displayTF.setText("0");
 				checkedAC = true;
@@ -287,9 +340,16 @@ public class CalculatorController {
 		equal.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				//if (displayTF.getText().equals("0")) 
-				bufferTF.setText(displayTF.getText().concat(" = "));
-				displayTF.setText(String.valueOf(calculate()));
+				String displayStr = displayTF.getText();
+				bufferTF.setText(displayStr.concat(" = "));
+
+				try {
+					displayStr = calculate();
+				} catch (Exception e) {
+					displayTF.setText("Error");
+				}
+				displayTF.setText(displayStr);
+
 				checkedEqual = true;				
 			}
 

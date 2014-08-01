@@ -5,24 +5,35 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="application.view.RootController">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.RootController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="파일">
             <items>
               <MenuItem fx:id="close" mnemonicParsing="false" onAction="#handleClose" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+            <Menu mnemonicParsing="false" text="CSS">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleCSSDefault" text="Default" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleCSSBlackPastel" text="Back Pastel" />
+                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="개인별">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="전체" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="김미선" />
+                  <MenuItem mnemonicParsing="false" text="김세용" />
+                  <MenuItem mnemonicParsing="false" text="임석환" />
+                  <MenuItem mnemonicParsing="false" text="황성호" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="도움말">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
             </items>
           </Menu>
         </menus>

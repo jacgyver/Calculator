@@ -15,10 +15,13 @@
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding></TextField>
-            <TextField fx:id="displayTF" alignment="CENTER_RIGHT" editable="false" prefHeight="50.0">
+            <TextField fx:id="displayTF" alignment="CENTER_RIGHT" editable="false" prefHeight="60.0" text="0">
                <padding>
                   <Insets left="20.0" right="20.0" />
-               </padding></TextField>
+               </padding>
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font></TextField>
             <AnchorPane>
                <children>
                   <GridPane hgap="5.0" vgap="3.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
